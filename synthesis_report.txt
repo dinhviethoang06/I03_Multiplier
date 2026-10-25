@@ -1,0 +1,222 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+-- Running command `read_verilog i03_multiplier.v; hierarchy -top i03_multiplier; proc; opt; stat' --
+
+1. Executing Verilog-2005 frontend: i03_multiplier.v
+Parsing Verilog input from `i03_multiplier.v' to AST representation.
+Generating RTLIL representation for module `\i03_multiplier'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \i03_multiplier
+
+2.2. Analyzing design hierarchy..
+Top module:  \i03_multiplier
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$i03_multiplier.v:24$3 in module i03_multiplier.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~4 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+     1/7: $0\done[0:0]
+     2/7: $0\count[3:0]
+     3/7: $0\accumulator[15:0]
+     4/7: $0\multiplier[7:0]
+     5/7: $0\multiplicand[15:0]
+     6/7: $0\busy[0:0]
+     7/7: $0\product[15:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\i03_multiplier.\product' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$78' with positive edge clock.
+Creating register for signal `\i03_multiplier.\busy' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$79' with positive edge clock.
+Creating register for signal `\i03_multiplier.\done' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$80' with positive edge clock.
+Creating register for signal `\i03_multiplier.\multiplicand' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$81' with positive edge clock.
+Creating register for signal `\i03_multiplier.\multiplier' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$82' with positive edge clock.
+Creating register for signal `\i03_multiplier.\accumulator' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$83' with positive edge clock.
+Creating register for signal `\i03_multiplier.\count' using process `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+  created $dff cell `$procdff$84' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 4 empty switches in `\i03_multiplier.$proc$i03_multiplier.v:24$3'.
+Removing empty process `i03_multiplier.$proc$i03_multiplier.v:24$3'.
+Cleaned up 4 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i03_multiplier.
+<suppressed ~2 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i03_multiplier.
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i03_multiplier'.
+Removed a total of 0 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i03_multiplier..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$59: \busy -> 1'0
+      Replacing known input bits on port A of cell $procmux$57: \busy -> 1'1
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~8 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i03_multiplier.
+Performed a total of 0 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i03_multiplier'.
+Removed a total of 0 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$84 ($dff) from module i03_multiplier (D = $procmux$24_Y, Q = \count, rval = 4'0000).
+Adding EN signal on $auto$ff.cc:266:slice$85 ($sdff) from module i03_multiplier (D = $add$i03_multiplier.v:53$9_Y, Q = \count).
+Adding SRST signal on $procdff$83 ($dff) from module i03_multiplier (D = $procmux$32_Y, Q = \accumulator, rval = 16'0000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$93 ($sdff) from module i03_multiplier (D = $ternary$i03_multiplier.v:20$2_Y, Q = \accumulator).
+Adding SRST signal on $procdff$78 ($dff) from module i03_multiplier (D = $procmux$70_Y, Q = \product, rval = 16'0000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$97 ($sdff) from module i03_multiplier (D = $ternary$i03_multiplier.v:20$2_Y, Q = \product).
+Adding SRST signal on $procdff$79 ($dff) from module i03_multiplier (D = $procmux$62_Y, Q = \busy, rval = 1'0).
+Adding SRST signal on $procdff$80 ($dff) from module i03_multiplier (D = $procmux$11_Y, Q = \done, rval = 1'0).
+Adding SRST signal on $procdff$81 ($dff) from module i03_multiplier (D = $procmux$48_Y [15:8], Q = \multiplicand [15:8], rval = 8'00000000).
+Adding SRST signal on $procdff$81 ($dff) from module i03_multiplier (D = $procmux$51_Y [7:0], Q = \multiplicand [7:0], rval = 8'00000000).
+Adding EN signal on $auto$ff.cc:266:slice$112 ($sdff) from module i03_multiplier (D = $procmux$51_Y [7:0], Q = \multiplicand [7:0]).
+Adding EN signal on $auto$ff.cc:266:slice$109 ($sdff) from module i03_multiplier (D = $shl$i03_multiplier.v:45$6_Y [15:8], Q = \multiplicand [15:8]).
+Adding SRST signal on $procdff$82 ($dff) from module i03_multiplier (D = $procmux$43_Y, Q = \multiplier, rval = 8'00000000).
+Adding EN signal on $auto$ff.cc:266:slice$117 ($sdff) from module i03_multiplier (D = $procmux$43_Y, Q = \multiplier).
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i03_multiplier..
+Removed 17 unused cells and 52 unused wires.
+<suppressed ~18 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i03_multiplier.
+<suppressed ~2 debug messages>
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i03_multiplier..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i03_multiplier.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i03_multiplier'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i03_multiplier..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i03_multiplier.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i03_multiplier..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i03_multiplier.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i03_multiplier'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i03_multiplier..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i03_multiplier.
+
+4.23. Finished OPT passes. (There is nothing left to do.)
+
+5. Printing statistics.
+
+=== i03_multiplier ===
+
+   Number of wires:                 33
+   Number of wire bits:            179
+   Number of public wires:          13
+   Number of public wire bits:      97
+   Number of ports:                  8
+   Number of port bits:             37
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 29
+     $add                            2
+     $eq                             1
+     $logic_and                      1
+     $logic_not                      1
+     $mux                            9
+     $not                            2
+     $reduce_and                     2
+     $reduce_bool                    1
+     $reduce_or                      2
+     $sdff                           2
+     $sdffe                          6
+
+End of script. Logfile hash: 70dec6079e, CPU: user 0.02s system 0.00s, MEM: 14.11 MB peak
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+Time spent: 30% 5x opt_expr (0 sec), 17% 3x opt_clean (0 sec), ...
