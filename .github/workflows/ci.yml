@@ -1,0 +1,29 @@
+
+name: Verilog CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  simulation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Compile testbench
+        run: |
+          iverilog -g2012 -o sim i03_multiplier.v tb_i03_multiplier.v
+
+      - name: Run simulation
+        run: |
+          vvp sim
