@@ -80,6 +80,8 @@ module tb_i03_multiplier;
         test(16,  16,  256);
         test(255, 0,   0);
         test(128, 2,   256);
+        test(7,   9,   63);
+        test(37,  11,  407);
 
         if (errors == 0)
             $display("ALL TESTS PASSED");
